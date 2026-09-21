@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latin Square Practice Platform (DLR / DMAT Test Format)</title>
+    <meta name="description" content="Free interactive Latin Square practice test for pilot aptitude, DLR, and cognitive reasoning exams with instant feedback, timed exam simulation, and step-by-step logic explanations.">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-theme="authentic">
+
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="brand">
+                <div class="brand-icon">LS</div>
+                <span>Latin Square Trainer</span>
+            </div>
+
+            <!-- Mode Selector -->
+            <div class="mode-tabs">
+                <button class="mode-tab active" id="tab-practice" data-mode="practice">Practice Mode</button>
+                <button class="mode-tab" id="tab-exam" data-mode="exam">Timed Exam</button>
+                <button class="mode-tab" id="tab-blitz" data-mode="blitz">Speed Blitz</button>
+            </div>
+
+            <!-- Nav Action Buttons -->
+            <div class="nav-actions">
+                <button class="btn-icon" id="btn-stats" title="View Statistics & History" aria-label="Statistics">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                </button>
+                <button class="btn-icon" id="btn-sound" title="Toggle Sound Effects" aria-label="Toggle Sound">
+                    <svg id="icon-sound-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                    <svg id="icon-sound-off" style="display:none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                </button>
+                <button class="btn-icon" id="btn-settings" title="Settings & Difficulty" aria-label="Settings">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Instructions Panel (Authentic DLR Accordion Style) -->
+        <section class="instructions-panel" id="instructions-panel">
+            <div class="instructions-content" id="instructions-content">
+                <h2>Which letter is missing?</h2>
+                <p>On the position of the question mark in the square, a letter is missing.</p>
+                <p id="instruction-symbols">In the square there can only occur the letters A, B, C, D and E.</p>
+                <p>Each letter may occur only exactly once in each row and each column.</p>
+                <p>Click onto the correct solution in the answer column with the mouse or press the key. If you do not know the answer, please guess.</p>
+            </div>
+            <div class="instructions-toggle-bar" id="btn-toggle-instructions" title="Collapse / Expand instructions" aria-label="Toggle instructions">
+                <span id="instruction-toggle-icon">︽</span>
+            </div>
+        </section>
+
+        <!-- Secondary Toolbar: Status, Timer, and Font Scaler -->
+        <div class="control-toolbar">
+            <div class="game-status-info">
+                <span class="status-badge" id="badge-difficulty">Difficulty: Medium</span>
+                <span class="status-badge highlight" id="badge-timer" style="display:none;">⏱ 00:00</span>
+                <span class="status-badge" id="badge-progress" style="display:none;">Question 1/20</span>
+                <span class="status-badge" id="badge-streak">🔥 Streak: 0</span>
+            </div>
+
+            <div class="dlr-controls-right">
+                <!-- Authentic Font Scaler -->
+                <div class="font-scaler-group">
+                    <button class="font-scaler-btn size-sm" data-scale="0.85" title="Small Text">A</button>
+                    <button class="font-scaler-btn size-md active" data-scale="1" title="Standard Text">A</button>
+                    <button class="font-scaler-btn size-lg" data-scale="1.15" title="Large Text">A</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Playing Area: Square + Answer Column -->
+        <main class="puzzle-arena">
+            <!-- Left: Latin Square -->
+            <div class="square-section">
+                <div class="section-title">Square</div>
+                <div class="latin-grid" id="latin-grid">
+                    <!-- Grid dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Right: Answer Column -->
+            <div class="answer-section">
+                <div class="section-title">Answer column</div>
+                <div class="answer-column" id="answer-column">
+                    <!-- Buttons dynamically generated (A, B, C, D, E) -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Feedback Banner -->
+        <div class="feedback-banner" id="feedback-banner"></div>
+
+        <!-- Bottom Action Bar (Practice Controls) -->
+        <div class="bottom-bar" id="practice-controls">
+            <button class="btn-secondary" id="btn-hint" title="Show Step-by-Step Logic Explanation">
+                💡 Explain Solution (H)
+            </button>
+            <button class="btn-secondary" id="btn-clear-notes" title="Clear Scratchpad notes typed in cells">
+                ✏️ Clear Notes
+            </button>
+            <button class="btn-primary" id="btn-next" title="Generate Next Puzzle">
+                Next Puzzle &rarr; (Space)
+            </button>
+        </div>
+
+        <!-- Bottom Exam Action Bar -->
+        <div class="bottom-bar" id="exam-controls" style="display:none;">
+            <button class="btn-secondary" id="btn-skip-exam">
+                Skip &rarr;
+            </button>
+            <button class="btn-primary" id="btn-end-exam" style="background: var(--accent-red); border-color: var(--accent-red);">
+                End Exam
+            </button>
+        </div>
+
+        <!-- Keyboard Shortcuts Legend -->
+        <footer class="keyboard-hints">
+            <span>Keys <span class="kbd-badge">A</span> - <span class="kbd-badge">E</span>: Select Answer</span>
+            <span><span class="kbd-badge">Space</span>: Next Question</span>
+            <span><span class="kbd-badge">H</span>: Step Solution</span>
+            <span><span class="kbd-badge">Click Cell</span>: Draft Notes</span>
+        </footer>
+    </div>
+
+    <!-- Modal: Step-by-Step Logic Explainer -->
+    <div class="modal-overlay" id="modal-solution">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">Logical Deduction Steps</div>
+                <button class="modal-close" data-close="modal-solution">&times;</button>
+            </div>
+            <div class="modal-body" id="solution-steps-list">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" data-close="modal-solution">Got It</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Statistics -->
+    <div class="modal-overlay" id="modal-stats">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">Practice Statistics & History</div>
+                <button class="modal-close" data-close="modal-stats">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value" id="stat-accuracy">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="stat-solved">0</div>
+                        <div class="stat-label">Questions Solved</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="stat-streak">0</div>
+                        <div class="stat-label">Best Streak</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="stat-avg-time">0s</div>
+                        <div class="stat-label">Avg Solve Time</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 16px 0 8px; font-size: 1rem;">Exam History (Recent Sessions)</h3>
+                <div id="exam-history-list" style="font-size: 0.88rem; max-height: 180px; overflow-y: auto;">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="btn-reset-stats">Reset Stats</button>
+                <button class="btn-primary" data-close="modal-stats">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Settings -->
+    <div class="modal-overlay" id="modal-settings">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">Preferences & Settings</div>
+                <button class="modal-close" data-close="modal-settings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="setting-theme">Visual Theme</label>
+                    <select id="setting-theme">
+                        <option value="authentic">Authentic Test Format (Default)</option>
+                        <option value="dark">Sleek Cyber Dark</option>
+                        <option value="light">Modern Crisp Light</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="setting-size">Grid Dimensions</label>
+                    <select id="setting-size">
+                        <option value="4">4 x 4 (Letters A - D)</option>
+                        <option value="5" selected>5 x 5 (Letters A - E) [Standard DLR / DMAT]</option>
+                        <option value="6">6 x 6 (Letters A - F) [Advanced]</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="setting-difficulty">Puzzle Difficulty</label>
+                    <select id="setting-difficulty">
+                        <option value="easy">Easy (1-step direct deductions)</option>
+                        <option value="medium" selected>Medium (Standard test difficulty)</option>
+                        <option value="hard">Hard (Multi-step constraint solving)</option>
+                        <option value="expert">Expert (Deep deduction trees)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="setting-exam-duration">Exam Duration</label>
+                    <select id="setting-exam-duration">
+                        <option value="180">3 Minutes (Speed test)</option>
+                        <option value="300" selected>5 Minutes (Standard test)</option>
+                        <option value="600">10 Minutes (Thorough test)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="setting-exam-count">Exam Question Count</label>
+                    <select id="setting-exam-count">
+                        <option value="10">10 Questions</option>
+                        <option value="15">15 Questions</option>
+                        <option value="20" selected>20 Questions</option>
+                        <option value="30">30 Questions</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="btn-save-settings">Save & Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Exam Completed Summary -->
+    <div class="modal-overlay" id="modal-exam-result">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">Exam Complete! 🎉</div>
+            </div>
+            <div class="modal-body">
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value" id="exam-res-score">0 / 20</div>
+                        <div class="stat-label">Final Score</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="exam-res-accuracy">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="exam-res-speed">0.0s</div>
+                        <div class="stat-label">Avg Speed / Q</div>
+                    </div>
+                </div>
+                <p id="exam-res-feedback" style="text-align: center; margin-top: 10px; font-weight: 600;"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="btn-exam-back-practice">Back to Practice</button>
+                <button class="btn-primary" id="btn-exam-retake">Retake Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/generator.js"></script>
+    <script src="js/sound.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
