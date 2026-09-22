@@ -1,18 +1,24 @@
 /* ==========================================================================
-   Latin Square Practice Platform - Master Stylesheet
-   Supports Authentic DLR Test Theme, Modern Light, and Sleek Dark
+   dMAT Cognitive & Aptitude Practice Platform - Master Stylesheet
+   Supports: Latin Square, Figure Sequences, Mathematical Equations
+   Themes: Authentic dMAT Magenta, Sleek Cyber Dark, Modern Light
    ========================================================================== */
 
 :root {
-    /* Authentic Theme Variables (Default) */
-    --bg-page: #fbfbfb;
+    /* Authentic dMAT Theme Variables (Default) */
+    --bg-page: #f8f9fa;
     --bg-surface: #ffffff;
-    --bg-subtle: #f5f5f7;
-    --text-primary: #111111;
-    --text-secondary: #555555;
-    --text-muted: #888888;
+    --bg-subtle: #f1f3f5;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #767676;
     --border-main: #333333;
-    --border-light: #d1d1d6;
+    --border-light: #dcdfe6;
+    
+    /* Authentic dMAT Signature Magenta */
+    --dmat-magenta: #8a124a;
+    --dmat-magenta-dark: #6e0b38;
+    --dmat-magenta-light: #fae8f0;
     --accent-pink: #c2185b;
     --accent-pink-bg: #fce4ec;
     --accent-blue: #1976d2;
@@ -20,6 +26,9 @@
     --accent-green-bg: #e8f5e9;
     --accent-red: #d32f2f;
     --accent-red-bg: #ffebee;
+    --accent-yellow: #f59e0b;
+    --accent-yellow-bg: #fef3c7;
+    
     --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
     --shadow-md: 0 6px 16px rgba(0,0,0,0.08);
     --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
@@ -42,6 +51,9 @@
     --text-muted: #64748b;
     --border-main: #4a5568;
     --border-light: #2d3748;
+    --dmat-magenta: #600c34;
+    --dmat-magenta-dark: #430623;
+    --dmat-magenta-light: rgba(255, 64, 129, 0.15);
     --accent-pink: #ff4081;
     --accent-pink-bg: rgba(255, 64, 129, 0.15);
     --accent-blue: #3b82f6;
@@ -49,6 +61,8 @@
     --accent-green-bg: rgba(16, 185, 129, 0.15);
     --accent-red: #ef4444;
     --accent-red-bg: rgba(239, 68, 68, 0.15);
+    --accent-yellow: #fbbf24;
+    --accent-yellow-bg: rgba(251, 191, 36, 0.15);
     --shadow-sm: 0 2px 6px rgba(0,0,0,0.3);
     --shadow-md: 0 8px 20px rgba(0,0,0,0.4);
     --shadow-lg: 0 16px 36px rgba(0,0,0,0.5);
@@ -64,6 +78,9 @@
     --text-muted: #94a3b8;
     --border-main: #64748b;
     --border-light: #cbd5e1;
+    --dmat-magenta: #9d174d;
+    --dmat-magenta-dark: #831843;
+    --dmat-magenta-light: #fce7f3;
     --accent-pink: #d81b60;
     --accent-pink-bg: #fce4ec;
     --accent-blue: #2563eb;
@@ -95,22 +112,24 @@ body {
 /* Layout Container */
 .app-container {
     width: 100%;
-    max-width: 1020px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 12px 20px 40px;
+    padding: 10px 16px 40px;
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
-/* Top Navigation Bar */
-.top-nav {
+/* Top App Hub Bar */
+.hub-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0 14px;
+    padding: 8px 0 12px;
     border-bottom: 1px solid var(--border-light);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .brand {
@@ -118,8 +137,7 @@ body {
     align-items: center;
     gap: 10px;
     font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: -0.02em;
+    font-size: 1.12rem;
     color: var(--text-primary);
 }
 
@@ -129,18 +147,49 @@ body {
     justify-content: center;
     width: 32px;
     height: 32px;
-    background: linear-gradient(135deg, #1976d2, #c2185b);
+    background: var(--dmat-magenta);
     color: white;
-    font-weight: bold;
-    font-size: 1rem;
+    font-weight: 800;
+    font-size: 0.95rem;
     border-radius: var(--radius-sm);
+    letter-spacing: -0.5px;
 }
 
-.nav-actions {
+/* Game Selector Switcher Tabs */
+.game-tabs {
+    display: flex;
+    background: var(--bg-subtle);
+    padding: 3px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    gap: 2px;
+}
+
+.game-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 7px 14px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
     display: flex;
     align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.game-tab:hover {
+    color: var(--text-primary);
+    background: rgba(0,0,0,0.03);
+}
+
+.game-tab.active {
+    background: var(--bg-surface);
+    color: var(--dmat-magenta);
+    font-weight: 700;
+    box-shadow: var(--shadow-sm);
 }
 
 /* Mode Selector Tabs */
@@ -156,8 +205,8 @@ body {
     background: transparent;
     border: none;
     color: var(--text-secondary);
-    padding: 6px 14px;
-    font-size: 0.85rem;
+    padding: 6px 12px;
+    font-size: 0.82rem;
     font-weight: 600;
     border-radius: var(--radius-sm);
     cursor: pointer;
@@ -174,13 +223,19 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
-/* Buttons */
+/* Nav Action Icon Buttons */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .btn-icon {
     background: var(--bg-surface);
     border: 1px solid var(--border-light);
     color: var(--text-secondary);
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: var(--radius-sm);
     display: inline-flex;
     align-items: center;
@@ -195,48 +250,119 @@ body {
     border-color: var(--border-main);
 }
 
-.btn-primary {
-    background: var(--text-primary);
-    color: var(--bg-surface);
-    border: 1px solid var(--text-primary);
-    padding: 8px 18px;
+/* ==========================================================================
+   Authentic dMAT Magenta Top Banner
+   ========================================================================== */
+.dmat-header-bar {
+    background: var(--dmat-magenta);
+    color: #ffffff;
+    padding: 10px 18px;
     border-radius: var(--radius-sm);
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: inline-flex;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 6px;
-    transition: all 0.15s ease;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-.btn-primary:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+.dmat-module-info {
+    display: flex;
+    align-items: center;
+    gap: 32px;
 }
 
-.btn-secondary {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    border: 1px solid var(--border-main);
-    padding: 8px 16px;
-    border-radius: var(--radius-sm);
+.dmat-mod-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.dmat-mod-bars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 2px;
+}
+
+.dmat-bar {
+    width: 14px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 1px;
+}
+
+.dmat-bar.active {
+    background: #ffffff;
+}
+
+.dmat-mod-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.dmat-mod-subtitle {
+    font-size: 0.76rem;
+    opacity: 0.85;
+    font-weight: 400;
+}
+
+.dmat-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dmat-pill-badge {
+    background: #ffeb3b;
+    color: #000000;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-transform: capitalize;
+}
+
+.btn-dmat-check {
+    background: transparent;
+    color: #ffffff;
+    border: 1.5px solid #ffffff;
+    padding: 5px 14px;
+    border-radius: 4px;
+    font-size: 0.84rem;
     font-weight: 600;
-    font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.15s ease;
 }
 
-.btn-secondary:hover {
-    background: var(--bg-subtle);
+.btn-dmat-check:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
-/* Instructions Accordion (Authentic Test Style) */
+.btn-dmat-end {
+    background: #ffffff;
+    color: var(--dmat-magenta);
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-dmat-end:hover {
+    background: #f1f3f5;
+}
+
+/* ==========================================================================
+   Instructions Accordion
+   ========================================================================== */
 .instructions-panel {
     background: var(--bg-surface);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-sm);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     overflow: hidden;
     transition: all 0.2s ease;
 }
@@ -245,13 +371,14 @@ body {
     padding: 12px 18px 8px;
     font-size: calc(0.92rem * var(--font-scale));
     color: var(--text-primary);
-    line-height: 1.5;
+    line-height: 1.45;
 }
 
 .instructions-content h2 {
-    font-size: calc(1rem * var(--font-scale));
+    font-size: calc(1.02rem * var(--font-scale));
     font-weight: 700;
     margin-bottom: 4px;
+    color: var(--text-primary);
 }
 
 .instructions-content p {
@@ -263,7 +390,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2px 0;
+    padding: 3px 0;
     background: var(--bg-subtle);
     border-top: 1px solid var(--border-light);
     cursor: pointer;
@@ -277,13 +404,15 @@ body {
     color: var(--text-primary);
 }
 
-/* Secondary Control Toolbar (Matching DLR / Authentic top right bar) */
+/* ==========================================================================
+   Secondary Status & Scaler Toolbar
+   ========================================================================== */
 .control-toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    padding: 6px 0;
+    margin-bottom: 16px;
+    padding: 4px 0;
     flex-wrap: wrap;
     gap: 12px;
 }
@@ -291,8 +420,8 @@ body {
 .game-status-info {
     display: flex;
     align-items: center;
-    gap: 16px;
-    font-size: 0.92rem;
+    gap: 12px;
+    font-size: 0.9rem;
     font-weight: 600;
 }
 
@@ -307,18 +436,17 @@ body {
 }
 
 .status-badge.highlight {
-    background: var(--accent-pink-bg);
-    color: var(--accent-pink);
-    border-color: var(--accent-pink);
+    background: var(--dmat-magenta-light);
+    color: var(--dmat-magenta);
+    border-color: var(--dmat-magenta);
 }
 
 .dlr-controls-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
-/* Authentic Font Scaler (A A A) */
 .font-scaler-group {
     display: flex;
     border: 1px solid var(--border-light);
@@ -350,30 +478,30 @@ body {
 }
 
 .font-scaler-btn.active {
-    background: var(--accent-pink);
+    background: var(--dmat-magenta);
     color: white;
 }
 
-/* Main Playing Arena */
-.puzzle-arena {
+/* ==========================================================================
+   GAME ARENA 1: Latin Square Arena
+   ========================================================================== */
+.arena-latin-square {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 70px;
-    margin: 20px auto 30px;
-    padding: 10px 0;
+    gap: 60px;
+    margin: 10px auto 24px;
     width: 100%;
 }
 
 @media (max-width: 768px) {
-    .puzzle-arena {
-        gap: 30px;
+    .arena-latin-square {
+        gap: 24px;
         flex-direction: column;
         align-items: center;
     }
 }
 
-/* Section Columns */
 .square-section, .answer-section {
     display: flex;
     flex-direction: column;
@@ -381,20 +509,18 @@ body {
 }
 
 .section-title {
-    font-size: calc(1.55rem * var(--font-scale));
-    font-weight: 500;
+    font-size: calc(1.4rem * var(--font-scale));
+    font-weight: 600;
     letter-spacing: -0.01em;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     color: var(--text-primary);
 }
 
-/* Latin Square Grid */
 .latin-grid {
     display: grid;
     background: var(--bg-surface);
     border: 2px solid var(--border-main);
     box-shadow: var(--shadow-md);
-    transition: transform 0.15s ease;
 }
 
 .grid-row {
@@ -413,19 +539,17 @@ body {
     color: var(--text-primary);
     position: relative;
     user-select: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
     background: var(--bg-surface);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Question Mark Target Cell */
 .grid-cell.target-cell {
-    color: var(--accent-pink);
+    color: var(--dmat-magenta);
     font-size: calc(2rem * var(--font-scale));
     font-weight: 800;
-    background: var(--accent-pink-bg);
+    background: var(--dmat-magenta-light);
 }
 
-/* Cell Highlight states for step explainer */
 .grid-cell.highlight-row, .grid-cell.highlight-col {
     background-color: rgba(25, 118, 210, 0.08);
 }
@@ -442,7 +566,6 @@ body {
     color: var(--accent-green);
 }
 
-/* Interactive Editable Cells for Scratchpad */
 .grid-cell.editable-cell {
     cursor: pointer;
 }
@@ -451,96 +574,584 @@ body {
     background-color: var(--bg-subtle);
 }
 
-.grid-cell.editable-cell.has-note {
-    color: var(--accent-blue);
-    font-weight: 600;
+.cell-notes {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    right: 4px;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
 }
 
-/* Answer Column */
 .answer-column {
     display: flex;
     flex-direction: column;
-    border: 2px solid var(--border-main);
-    background: var(--bg-surface);
-    box-shadow: var(--shadow-md);
+    gap: 8px;
+    width: 100%;
+    min-width: 120px;
 }
 
 .answer-btn {
-    width: calc(var(--grid-cell-size) * var(--font-scale));
-    height: calc(var(--grid-cell-size) * var(--font-scale));
-    border: none;
-    border-bottom: 1px solid var(--border-main);
+    width: 100%;
+    height: calc(52px * var(--font-scale));
     background: var(--bg-surface);
-    color: var(--text-primary);
-    font-size: calc(1.75rem * var(--font-scale));
+    border: 2px solid var(--border-main);
+    border-radius: var(--radius-sm);
+    font-size: calc(1.4rem * var(--font-scale));
     font-weight: 700;
+    color: var(--text-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     transition: all 0.12s ease;
-    outline: none;
+    box-shadow: var(--shadow-sm);
 }
 
-.answer-btn:last-child {
-    border-bottom: none;
-}
-
-.answer-btn:hover {
+.answer-btn:hover:not(:disabled) {
     background: var(--bg-subtle);
-    color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    transform: translateX(2px);
 }
 
-.answer-btn:active {
-    transform: scale(0.96);
-}
-
-.answer-btn.selected-correct {
+.answer-btn.correct {
     background: var(--accent-green) !important;
+    border-color: var(--accent-green) !important;
     color: white !important;
 }
 
-.answer-btn.selected-wrong {
+.answer-btn.wrong {
     background: var(--accent-red) !important;
+    border-color: var(--accent-red) !important;
     color: white !important;
 }
 
-.answer-btn.reveal-correct {
-    background: var(--accent-green-bg) !important;
-    color: var(--accent-green) !important;
-    outline: 2px dashed var(--accent-green);
+/* ==========================================================================
+   GAME ARENA 2: Figure Sequences (Pattern Recognition)
+   ========================================================================== */
+.arena-figure-sequences {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin: 8px auto 20px;
+    width: 100%;
 }
 
-/* Bottom Action Bar */
-.bottom-bar {
+/* Row of 4 given grids + 2 question mark placeholders */
+.figure-sequence-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    flex-wrap: wrap;
+    background: var(--bg-surface);
+    padding: 14px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Figure Box container */
+.figure-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.figure-card-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.figure-grid-box {
+    width: 110px;
+    height: 110px;
+    border: 2px solid var(--border-main);
+    background: #ffffff;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    position: relative;
+    user-select: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] .figure-grid-box {
+    background: #1e222d;
+    border-color: #64748b;
+}
+
+.figure-cell {
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+[data-theme="dark"] .figure-cell {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.figure-target-box {
+    width: 110px;
+    height: 110px;
+    border: 2px dashed var(--dmat-magenta);
+    background: var(--dmat-magenta-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--dmat-magenta);
+    border-radius: 2px;
+}
+
+/* Options Section for Question Marks */
+.figure-options-area {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 12px;
-    margin-top: 24px;
+    gap: 32px;
+    width: 100%;
+    margin-top: 4px;
     flex-wrap: wrap;
 }
 
-/* Feedback message overlay */
-.feedback-banner {
-    min-height: 28px;
-    margin-top: 14px;
+.figure-options-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-surface);
+    padding: 16px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    min-width: 220px;
+}
+
+.figure-arrow-indicator {
+    font-size: 1.6rem;
+    color: var(--border-main);
+    margin-bottom: -4px;
+    animation: bounceDown 1.5s infinite ease-in-out;
+}
+
+.figure-option-choice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 12px;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    background: var(--bg-subtle);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.figure-option-choice:hover {
+    border-color: var(--accent-blue);
+    background: rgba(25, 118, 210, 0.06);
+}
+
+.figure-option-choice.selected {
+    border-color: var(--dmat-magenta);
+    background: var(--dmat-magenta-light);
+}
+
+.figure-option-choice.correct-reveal {
+    border-color: var(--accent-green) !important;
+    background: var(--accent-green-bg) !important;
+}
+
+.figure-option-choice.wrong-reveal {
+    border-color: var(--accent-red) !important;
+    background: var(--accent-red-bg) !important;
+}
+
+.figure-option-radio {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--border-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.figure-option-choice.selected .figure-option-radio {
+    border-color: var(--dmat-magenta);
+    background: var(--dmat-magenta);
+}
+
+.figure-option-choice.selected .figure-option-radio::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+.figure-option-choice .figure-grid-box {
+    width: 80px;
+    height: 80px;
+}
+
+/* ==========================================================================
+   GAME ARENA 3: Mathematical Equations (Linear Equations)
+   ========================================================================== */
+.arena-math-equations {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 32px;
+    margin: 12px auto 24px;
+    width: 100%;
+    align-items: start;
+}
+
+@media (max-width: 840px) {
+    .arena-math-equations {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+.math-col {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.math-col-title {
+    font-size: calc(1.3rem * var(--font-scale));
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: var(--text-primary);
     text-align: center;
-    font-size: 1.05rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 8px;
+}
+
+/* Equations Stack */
+.equations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.equation-row {
+    font-size: calc(1.35rem * var(--font-scale));
+    font-weight: 700;
+    font-family: var(--font-main);
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+    padding: 8px 12px;
+    background: var(--bg-subtle);
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--dmat-magenta);
+    text-align: center;
+}
+
+/* Solutions Inputs Stack */
+.solutions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 10px 0;
+}
+
+.solution-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: calc(1.3rem * var(--font-scale));
+    font-weight: 700;
+}
+
+.var-label {
+    min-width: 32px;
+    text-align: right;
+    color: var(--text-primary);
+}
+
+.solution-box {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: calc(1.2rem * var(--font-scale));
+    font-weight: 700;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    outline: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.solution-box::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+.solution-box:focus, .solution-box.active-focus {
+    border-color: var(--dmat-magenta);
+    background: var(--dmat-magenta-light);
+    box-shadow: 0 0 0 2px rgba(138, 18, 74, 0.2);
+}
+
+.solution-box.correct {
+    border-color: var(--accent-green) !important;
+    background: var(--accent-green-bg) !important;
+    color: var(--accent-green) !important;
+}
+
+.solution-box.wrong {
+    border-color: var(--accent-red) !important;
+    background: var(--accent-red-bg) !important;
+    color: var(--accent-red) !important;
+}
+
+/* Virtual Keyboard */
+.virtual-numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 6px 0;
+}
+
+.numpad-btn {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    font-size: calc(1.3rem * var(--font-scale));
+    font-weight: 700;
+    padding: 12px 0;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.12s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.numpad-btn:hover {
+    background: var(--border-light);
+    transform: translateY(-1px);
+}
+
+.numpad-btn:active {
+    transform: translateY(1px);
+}
+
+.numpad-btn.btn-delete {
+    grid-column: span 3;
+    font-size: 1rem;
     font-weight: 600;
-    transition: all 0.2s ease;
+    display: flex;
+    gap: 8px;
+    background: var(--bg-surface);
+    border-color: var(--border-light);
 }
 
-.feedback-banner.correct {
+.numpad-btn.btn-zero {
+    grid-column: span 3;
+}
+
+/* ==========================================================================
+   Feedback Banner
+   ========================================================================== */
+.feedback-banner {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 14px;
+    display: none;
+    animation: fadeIn 0.2s ease;
+}
+
+.feedback-banner.success {
+    display: block;
+    background: var(--accent-green-bg);
     color: var(--accent-green);
+    border: 1px solid var(--accent-green);
 }
 
-.feedback-banner.wrong {
+.feedback-banner.error {
+    display: block;
+    background: var(--accent-red-bg);
     color: var(--accent-red);
+    border: 1px solid var(--accent-red);
 }
 
-/* Modals */
+/* ==========================================================================
+   Bottom Action Bars & Pagination
+   ========================================================================== */
+.bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--border-light);
+    margin-top: auto;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Authentic dMAT Exam Bottom Pagination Bar */
+.dmat-bottom-exam-bar {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.dmat-brand-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--dmat-magenta);
+}
+
+.dmat-pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.page-bubble {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid var(--border-light);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 0.84rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.page-bubble:hover {
+    border-color: var(--dmat-magenta);
+}
+
+.page-bubble.active {
+    background: var(--dmat-magenta);
+    color: #ffffff;
+    border-color: var(--dmat-magenta);
+}
+
+.page-bubble.answered {
+    background: var(--dmat-magenta-light);
+    color: var(--dmat-magenta);
+    border-color: var(--dmat-magenta);
+}
+
+.btn-dmat-nav {
+    background: var(--dmat-magenta);
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.86rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+}
+
+.btn-dmat-nav:hover {
+    background: var(--dmat-magenta-dark);
+}
+
+.btn-dmat-nav.secondary {
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
+}
+
+.btn-dmat-nav.secondary:hover {
+    background: var(--border-light);
+}
+
+/* Practice Buttons */
+.btn-primary {
+    background: var(--text-primary);
+    color: var(--bg-surface);
+    border: 1px solid var(--text-primary);
+    padding: 9px 18px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-main);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--bg-subtle);
+}
+
+/* ==========================================================================
+   Modals & Popups
+   ========================================================================== */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -570,7 +1181,7 @@ body {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
     width: 100%;
-    max-width: 540px;
+    max-width: 580px;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -587,13 +1198,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 24px;
+    padding: 16px 22px;
     border-bottom: 1px solid var(--border-light);
 }
 
 .modal-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 700;
+    color: var(--text-primary);
 }
 
 .modal-close {
@@ -611,7 +1223,7 @@ body {
 }
 
 .modal-body {
-    padding: 20px 24px;
+    padding: 18px 22px;
     overflow-y: auto;
     font-size: 0.95rem;
     color: var(--text-secondary);
@@ -621,18 +1233,19 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    padding: 14px 24px;
+    padding: 12px 22px;
     border-top: 1px solid var(--border-light);
     background: var(--bg-subtle);
 }
 
-/* Step Explainer List */
+/* Explanation Step Cards */
 .explanation-step {
-    padding: 12px;
+    padding: 12px 14px;
     margin-bottom: 10px;
     background: var(--bg-subtle);
-    border-left: 4px solid var(--accent-blue);
+    border-left: 4px solid var(--dmat-magenta);
     border-radius: var(--radius-sm);
+    color: var(--text-primary);
 }
 
 .explanation-step.target-step {
@@ -651,29 +1264,29 @@ body {
 /* Stats Cards */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
 }
 
 .stat-box {
     background: var(--bg-subtle);
-    padding: 14px;
+    padding: 12px;
     border-radius: var(--radius-md);
     text-align: center;
     border: 1px solid var(--border-light);
 }
 
 .stat-value {
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     font-weight: 800;
     color: var(--text-primary);
     margin-bottom: 2px;
 }
 
 .stat-label {
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
     color: var(--text-muted);
     letter-spacing: 0.04em;
@@ -681,15 +1294,15 @@ body {
 
 /* Form Groups in Settings */
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 .form-group label {
     display: block;
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     color: var(--text-primary);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
 }
 
 .form-group select, .form-group input {
@@ -699,22 +1312,16 @@ body {
     border-radius: var(--radius-sm);
     background: var(--bg-surface);
     color: var(--text-primary);
-    font-size: 0.95rem;
-}
-
-.form-group .form-hint {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-top: 4px;
+    font-size: 0.92rem;
 }
 
 /* Keyboard Hints in footer */
 .keyboard-hints {
     display: flex;
     justify-content: center;
-    gap: 14px;
-    margin-top: 24px;
-    font-size: 0.82rem;
+    gap: 12px;
+    margin-top: 20px;
+    font-size: 0.8rem;
     color: var(--text-muted);
     flex-wrap: wrap;
 }
@@ -731,11 +1338,16 @@ body {
     box-shadow: 0 1px 0 rgba(0,0,0,0.1);
 }
 
-/* Keyframe animations */
+/* Animations */
 @keyframes cellPop {
     0% { transform: scale(0.85); }
     50% { transform: scale(1.08); }
     100% { transform: scale(1); }
+}
+
+@keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
 }
 
 @keyframes shakeGrid {
